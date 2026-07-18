@@ -4,13 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>介護現場から見るAI</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700;900&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar">介護 × AI 専門ニュース&nbsp;・&nbsp;定期更新&nbsp;・&nbsp;<a href="stocks.html" style="color:inherit;text-decoration:underline;">関連銘柄チャートはこちら →</a></div>
+<div class="topbar">介護 × AI 専門ニュース&nbsp;・&nbsp;定期更新&nbsp;・&nbsp;<a href="stocks.html">関連銘柄チャートはこちら →</a></div>
 <header class="site">
   <div class="inner">
     <h1>介護現場から見るAI</h1>
@@ -18,45 +15,85 @@
   </div>
 </header>
 
-<div class="wrap">
-  <div class="section-label">最新記事</div>
-
-  <div class="tabbar" id="tabbar">
-    <button class="tab-btn active" data-filter="all">すべて</button>
+<div class="tabbar-wrap">
+  <nav class="tabbar" id="tabbar">
+    <button class="tab-btn active" data-filter="all">すべて<span class="count">4</span></button>
     <button class="tab-btn" data-filter="physical">フィジカルAI</button>
     <button class="tab-btn" data-filter="record">記録・ケアプラン</button>
     <button class="tab-btn" data-filter="compliance">規制・コンプライアンス</button>
     <button class="tab-btn" data-filter="supply">サプライチェーン</button>
-  </div>
+  </nav>
+</div>
 
-  <div class="grid" id="articleGrid">
-    <a class="card card-lead" data-category="physical" href="articles/physical-ai-kaigo.html">
-      <span class="tag">フィジカルAI</span>
-      <h2>介護現場とフィジカルAI ― 世界が注目する「日本の現場」</h2>
-      <p>ロボットが体を持って現場に入ってくる時代。国内外の動きと、実際の施設の成功事例をまとめました。</p>
-      <div class="card-date">2026年7月17日 23:47</div>
-    </a>
+<div class="wrap">
+  <div class="section-label">最新記事 <span class="section-count">全4件</span></div>
 
-    <a class="card" data-category="record" href="articles/care-record-ai.html">
-      <span class="tag tag-green">記録・ケアプランAI</span>
-      <h2>介護記録・ケアプラン作成、AIはどこまで肩代わりできるのか</h2>
-      <p>記録時間85%削減、ケアプラン作成9割減。事務作業をAIに任せられるのか、という問いへの現時点の答えをまとめました。</p>
-      <div class="card-date">2026年7月18日 13:46</div>
-    </a>
+  <div class="layout">
+    <main class="main-col">
+      <div class="index-list" id="articleGrid">
+        <a class="card" data-category="supply" href="articles/supply-chain-kaigo.html">
+          <span class="row-num">01</span>
+          <span class="tag tag-orange">業界サプライチェーン</span>
+          <span class="row-main">
+            <span class="row-title">介護施設を支える、意外な身近企業たち ― アスクル・ニトリ・紙おむつメーカー<span class="badge-new">NEW</span></span>
+            <span class="row-desc">AIやロボットの裏で現場を支える、地味だが欠かせない企業群。什器・消耗品から見る介護業界の裾野。</span>
+          </span>
+          <span class="card-date">2026年7月18日 17:30</span>
+        </a>
 
-    <a class="card" data-category="compliance" href="articles/privacy-rules-ai-kaigo.html">
-      <span class="tag tag-red">規制・コンプライアンス</span>
-      <h2>介護現場で生成AIを使うなら、知っておきたい個人情報のルール</h2>
-      <p>2026年の法改正、政府ガイダンス、生成AIへの入力ルール、そして実際の漏洩事例から見えてきたこと。</p>
-      <div class="card-date">2026年7月18日 16:21</div>
-    </a>
+        <a class="card" data-category="compliance" href="articles/privacy-rules-ai-kaigo.html">
+          <span class="row-num">02</span>
+          <span class="tag tag-red">規制・コンプライアンス</span>
+          <span class="row-main">
+            <span class="row-title">介護現場で生成AIを使うなら、知っておきたい個人情報のルール</span>
+            <span class="row-desc">2026年の法改正、政府ガイダンス、生成AIへの入力ルール、そして実際の漏洩事例から見えてきたこと。</span>
+          </span>
+          <span class="card-date">2026年7月18日 16:21</span>
+        </a>
 
-    <a class="card" data-category="supply" href="articles/supply-chain-kaigo.html">
-      <span class="tag tag-orange">業界サプライチェーン</span>
-      <h2>介護施設を支える、意外な身近企業たち ― アスクル・ニトリ・紙おむつメーカー</h2>
-      <p>AIやロボットの裏で現場を支える、地味だが欠かせない企業群。什器・消耗品から見る介護業界の裾野。</p>
-      <div class="card-date">2026年7月18日 17:30</div>
-    </a>
+        <a class="card" data-category="record" href="articles/care-record-ai.html">
+          <span class="row-num">03</span>
+          <span class="tag tag-green">記録・ケアプランAI</span>
+          <span class="row-main">
+            <span class="row-title">介護記録・ケアプラン作成、AIはどこまで肩代わりできるのか</span>
+            <span class="row-desc">記録時間85%削減、ケアプラン作成9割減。事務作業をAIに任せられるのか、という問いへの現時点の答えをまとめました。</span>
+          </span>
+          <span class="card-date">2026年7月18日 13:46</span>
+        </a>
+
+        <a class="card" data-category="physical" href="articles/physical-ai-kaigo.html">
+          <span class="row-num">04</span>
+          <span class="tag">フィジカルAI</span>
+          <span class="row-main">
+            <span class="row-title">介護現場とフィジカルAI ― 世界が注目する「日本の現場」</span>
+            <span class="row-desc">ロボットが体を持って現場に入ってくる時代。国内外の動きと、実際の施設の成功事例をまとめました。</span>
+          </span>
+          <span class="card-date">2026年7月17日 23:47</span>
+        </a>
+      </div>
+    </main>
+
+    <aside class="side-col">
+      <div class="side-box">
+        <div class="side-box-title">このサイトについて</div>
+        <p>有料老人ホームで働く一人の目線で、AIの進化を手探りで追いかけていく記録</p>
+      </div>
+      <div class="side-box">
+        <div class="side-box-title">関連情報</div>
+        <ul class="side-list">
+          <li><a href="stocks.html">関連銘柄チャートはこちら →</a></li>
+        </ul>
+      </div>
+      <div class="side-box">
+        <div class="side-box-title">カテゴリー</div>
+        <ul class="side-list plain">
+          <li>フィジカルAI</li>
+          <li>記録・ケアプラン</li>
+          <li>規制・コンプライアンス</li>
+          <li>サプライチェーン</li>
+        </ul>
+      </div>
+    </aside>
   </div>
 
   <footer>
