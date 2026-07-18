@@ -114,6 +114,39 @@ header.site .dek {
   margin: 0 0 1.4rem;
 }
 
+/* ---------- Category tab filter ---------- */
+
+.tabbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.6rem;
+}
+
+.tab-btn {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.tab-btn:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.tab-btn.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
 /* ---------- Homepage grid (newspaper column style) ---------- */
 
 .grid {
@@ -168,6 +201,13 @@ header.site .dek {
   color: var(--muted);
   font-size: 0.94rem;
   line-height: 1.65;
+}
+
+.card-date {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-style: italic;
 }
 
 /* ---------- Category eyebrow labels (classic newsroom style, no pill) ---------- */

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="topbar">介護 × AI 専門ニュース&nbsp;・&nbsp;定期更新</div>
+<div class="topbar">介護 × AI 専門ニュース&nbsp;・&nbsp;定期更新&nbsp;・&nbsp;<a href="stocks.html" style="color:inherit;text-decoration:underline;">関連銘柄チャートはこちら →</a></div>
 <header class="site">
   <div class="inner">
     <h1>介護現場から見るAI</h1>
@@ -20,23 +20,42 @@
 
 <div class="wrap">
   <div class="section-label">最新記事</div>
-  <div class="grid">
-    <a class="card card-lead" href="articles/physical-ai-kaigo.html">
+
+  <div class="tabbar" id="tabbar">
+    <button class="tab-btn active" data-filter="all">すべて</button>
+    <button class="tab-btn" data-filter="physical">フィジカルAI</button>
+    <button class="tab-btn" data-filter="record">記録・ケアプラン</button>
+    <button class="tab-btn" data-filter="compliance">規制・コンプライアンス</button>
+    <button class="tab-btn" data-filter="supply">サプライチェーン</button>
+  </div>
+
+  <div class="grid" id="articleGrid">
+    <a class="card card-lead" data-category="physical" href="articles/physical-ai-kaigo.html">
       <span class="tag">フィジカルAI</span>
       <h2>介護現場とフィジカルAI ― 世界が注目する「日本の現場」</h2>
       <p>ロボットが体を持って現場に入ってくる時代。国内外の動きと、実際の施設の成功事例をまとめました。</p>
+      <div class="card-date">2026年7月17日 23:47</div>
     </a>
 
-    <a class="card" href="articles/care-record-ai.html">
+    <a class="card" data-category="record" href="articles/care-record-ai.html">
       <span class="tag tag-green">記録・ケアプランAI</span>
       <h2>介護記録・ケアプラン作成、AIはどこまで肩代わりできるのか</h2>
       <p>記録時間85%削減、ケアプラン作成9割減。事務作業をAIに任せられるのか、という問いへの現時点の答えをまとめました。</p>
+      <div class="card-date">2026年7月18日 13:46</div>
     </a>
 
-    <a class="card" href="articles/privacy-rules-ai-kaigo.html">
+    <a class="card" data-category="compliance" href="articles/privacy-rules-ai-kaigo.html">
       <span class="tag tag-red">規制・コンプライアンス</span>
       <h2>介護現場で生成AIを使うなら、知っておきたい個人情報のルール</h2>
       <p>2026年の法改正、政府ガイダンス、生成AIへの入力ルール、そして実際の漏洩事例から見えてきたこと。</p>
+      <div class="card-date">2026年7月18日 16:21</div>
+    </a>
+
+    <a class="card" data-category="supply" href="articles/supply-chain-kaigo.html">
+      <span class="tag tag-orange">業界サプライチェーン</span>
+      <h2>介護施設を支える、意外な身近企業たち ― アスクル・ニトリ・紙おむつメーカー</h2>
+      <p>AIやロボットの裏で現場を支える、地味だが欠かせない企業群。什器・消耗品から見る介護業界の裾野。</p>
+      <div class="card-date">2026年7月18日 17:30</div>
     </a>
   </div>
 
@@ -45,5 +64,26 @@
     <p>介護現場から見るAI — 一人の職員による個人的な記録です</p>
   </footer>
 </div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.tab-btn');
+  var cards = document.querySelectorAll('#articleGrid .card');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      buttons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      cards.forEach(function (card) {
+        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
