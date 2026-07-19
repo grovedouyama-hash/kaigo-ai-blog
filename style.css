@@ -855,3 +855,42 @@ footer .footer-rule {
   font-size: 0.75rem;
   color: var(--muted, #999);
 }
+
+/* ---- stocks: 企業の動き・新商品タイムライン ---- */
+.stx-moves { margin: .6rem 0 1.4rem; }
+.move-item {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: .2rem 1.1rem;
+  padding: .95rem 0;
+  border-top: 1px solid var(--border);
+}
+.move-item:last-child { border-bottom: 1px solid var(--border); }
+.move-date {
+  font-size: .82rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: .15rem;
+  white-space: nowrap;
+}
+.move-date b { color: var(--accent); font-weight: 700; }
+.move-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: .2rem .5rem;
+  margin-bottom: .25rem;
+}
+.move-co { font-weight: 700; font-size: .98rem; }
+.move-code {
+  font-size: .78rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.move-text { margin: 0 0 .35rem; font-size: .9rem; line-height: 1.65; }
+.move-src a { font-size: .78rem; color: var(--muted); }
+.move-src a:hover { color: var(--accent); }
+@media (max-width: 600px) {
+  .move-item { grid-template-columns: 1fr; gap: .15rem; }
+  .move-date { padding-top: 0; }
+}
