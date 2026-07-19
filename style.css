@@ -894,3 +894,38 @@ footer .footer-rule {
   .move-item { grid-template-columns: 1fr; gap: .15rem; }
   .move-date { padding-top: 0; }
 }
+
+/* ---- stocks: クリックで絞り込み + 情報源タグ ---- */
+.grip-card[data-co] { cursor: pointer; transition: border-color .15s, transform .05s; }
+.grip-card[data-co]:hover { border-color: var(--accent); }
+.grip-card[data-co]:active { transform: translateY(1px); }
+.grip-card[data-co]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.move-filter {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .6rem; flex-wrap: wrap;
+  background: var(--bg-subtle, #eef1f8);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: .5rem .8rem; margin: .2rem 0 .8rem; font-size: .88rem;
+}
+.move-filter button {
+  background: var(--accent); color: #fff; border: 0; border-radius: 6px;
+  padding: .35rem .7rem; font-size: .82rem; cursor: pointer;
+}
+.move-filter button:hover { background: var(--accent-strong, #142a70); }
+
+/* 年月日が入るので日付列を少し広げる */
+.move-item { grid-template-columns: 132px 1fr; }
+@media (max-width: 600px) { .move-item { grid-template-columns: 1fr; } }
+
+.move-tag {
+  font-size: .7rem; font-weight: 700; line-height: 1;
+  padding: .2rem .45rem; border-radius: 4px; white-space: nowrap;
+}
+.move-tag.tag-official { background: rgba(29,57,148,.1); color: var(--accent); }
+.move-tag.tag-news { background: rgba(120,120,120,.15); color: var(--muted); }
+.move-tag.tag-sns { background: rgba(29,155,240,.12); color: #1d9bf0; }
+
+.move-empty { color: var(--muted); font-size: .88rem; padding: 1rem 0; }
