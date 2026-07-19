@@ -555,3 +555,277 @@ footer .footer-rule {
   article h1 { font-size: 1.3rem; }
   article h2 { font-size: 1.08rem; }
 }
+
+/* =======================================================================
+   candidate-4: "関わりの濃さ x コンパクトカード型"
+   - Same hue (navy accent) rendered at 4 depths of ink to encode how
+     deeply each listed company is actually involved in kaigo/AI, not
+     just that it's "on the list". Darkest fill = closest to a pure
+     play; lightest outline = one small, indirect corner of a giant.
+   - Cards stay small and dense (grid of many, not a few big tiles) so
+     15 companies scan like a table, not a brochure.
+   ======================================================================= */
+
+.stx-intro {
+  font-size: 0.98rem;
+}
+
+/* ---- Chart block: chart is the hero, everything else is quiet ---- */
+
+.stx-chart-block {
+  margin: 1.1rem 0 0.4rem;
+}
+
+.stx-chart-caption {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0.4rem 0 0;
+  text-align: right;
+}
+
+/* ---- Summary strip: legend read horizontally BEFORE the dense grid ---- */
+
+.stx-scale {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.7rem 0.9rem;
+  margin: 0.6rem 0 1rem;
+}
+
+.stx-scale-label {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  flex: 0 0 auto;
+  margin-right: 0.2rem;
+}
+
+.stx-scale-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+
+.stx-scale-swatch {
+  width: 0.85em;
+  height: 0.85em;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+
+/* four ink depths, one hue */
+.swatch-pure     { background: var(--accent); border: 1px solid var(--accent); }
+.swatch-core     { background: color-mix(in srgb, var(--accent) 62%, transparent); border: 1px solid var(--accent); }
+.swatch-unit     { background: color-mix(in srgb, var(--accent) 22%, transparent); border: 1px solid var(--accent); }
+.swatch-indirect { background: transparent; border: 1px solid var(--border); }
+
+/* ---- Tab toggle for the card grid (reuses tabbar-btn look, scoped) ---- */
+
+.stx-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin: 1.2rem 0 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.stx-tab-btn {
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--muted);
+  padding: 0.55rem 0.3rem 0.5rem;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.stx-tab-btn .stx-tab-count {
+  font-weight: 600;
+  opacity: 0.75;
+  font-size: 0.88em;
+  margin-left: 0.25em;
+}
+
+.stx-tab-btn:hover { color: var(--text); }
+
+.stx-tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ---- Dense card grid ---- */
+
+.stx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(216px, 1fr));
+  gap: 0.55rem;
+}
+
+.stx-panel { display: none; }
+.stx-panel.active { display: grid; }
+
+.grip-card {
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-panel);
+  padding: 0.55rem 0.65rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-height: 0;
+}
+
+.grip-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.grip-name {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.35;
+}
+
+.grip-code {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.grip-desc {
+  font-size: 0.76rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+  flex: 1 0 auto;
+}
+
+.grip-tier {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  padding: 0.16em 0.5em;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.tier-pure {
+  background: var(--accent);
+  color: #fff;
+}
+
+.tier-core {
+  background: color-mix(in srgb, var(--accent) 62%, transparent);
+  color: #fff;
+}
+
+.tier-unit {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent-strong);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tier-unit { color: var(--text); }
+}
+
+.tier-indirect {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.stx-note {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 880px) {
+  .stx-grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+}
+
+@media (max-width: 600px) {
+  .stx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; }
+  .grip-card { padding: 0.5rem 0.55rem 0.55rem; }
+  .grip-name { font-size: 0.82rem; }
+  .grip-desc { font-size: 0.73rem; }
+  .stx-scale { padding: 0.6rem 0.7rem; }
+  .stx-scale-label { flex-basis: 100%; margin-right: 0; }
+  .stx-tabs { gap: 0.2rem; }
+  .stx-tab-btn { font-size: 0.78rem; padding: 0.5rem 0.25rem 0.45rem; }
+}
+
+@media (max-width: 380px) {
+  .stx-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- index-mock.html: sidebar promo box, previews the tier concept ---- */
+
+.stx-promo {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.stx-promo:hover {
+  border-color: var(--accent);
+}
+
+.stx-promo:hover .stx-promo-cta { text-decoration: underline; }
+
+.stx-promo-lead {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0 0 0.7rem;
+}
+
+.stx-promo-lead strong { color: var(--text); }
+
+.stx-promo-scale {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.stx-promo-swatch {
+  width: 1.1em;
+  height: 0.62em;
+  border-radius: 1px;
+}
+
+.stx-promo-scale .swatch-pure     { background: var(--accent); }
+.stx-promo-scale .swatch-core     { background: color-mix(in srgb, var(--accent) 62%, transparent); }
+.stx-promo-scale .swatch-unit     { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.stx-promo-scale .swatch-indirect { background: transparent; border: 1px solid var(--border); }
+
+.stx-promo-scale-text {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-left: 0.35rem;
+  white-space: nowrap;
+}
+
+.stx-promo-cta {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+}

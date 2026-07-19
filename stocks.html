@@ -21,8 +21,9 @@
   <h1>介護×AI 関連銘柄チャート</h1>
   <div class="meta notice-disclaimer"><strong>このページは投資助言ではありません。</strong>当サイトの筆者は投資アドバイザーの資格を持っていません。ここに掲載する銘柄・チャートは「どんな企業がこの分野に関わっているか」を知るための一次情報であり、売買の推奨や個別銘柄の評価は一切含みません。投資判断は、ご自身の責任で行うか、有資格のファイナンシャルアドバイザーにご相談ください。</div>
 
-  <p>このサイトで取り上げてきた「介護×AI」「介護施設を支える身近な企業」に関連する銘柄を、チャートで一覧できるようにしました。フィジカルAI・ロボティクス関連と、什器・消耗品などの生活関連の2つのタブに分けています。</p>
+  <p class="stx-intro">このサイトで取り上げてきた「介護×AI」「介護施設を支える身近な企業」に関連する銘柄を、チャートで一覧できるようにしました。下のカード一覧では、同じ「介護関連銘柄」でも会社によって関わりの<strong>濃さ</strong>がまったく違う点を、色の濃淡で示しています。</p>
 
+  <div class="stx-chart-block">
   <div class="tradingview-widget-container">
     <div class="tradingview-widget-container__widget"></div>
     <div class="tradingview-widget-copyright" style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem;">
@@ -79,12 +80,129 @@
     }
     </script>
   </div>
+  <p class="stx-chart-caption">チャートのタブ（フィジカルAI・ロボティクス／生活関連企業）と、下の一覧のタブは対応しています。</p>
+  </div>
+
+  <div class="stx-scale" aria-label="関わりの濃さの凡例">
+    <span class="stx-scale-label">関わりの濃さ ―</span>
+    <span class="stx-scale-item"><span class="stx-scale-swatch swatch-pure"></span>専業に近い</span>
+    <span class="stx-scale-item"><span class="stx-scale-swatch swatch-core"></span>中核技術</span>
+    <span class="stx-scale-item"><span class="stx-scale-swatch swatch-unit"></span>一事業部門</span>
+    <span class="stx-scale-item"><span class="stx-scale-swatch swatch-indirect"></span>間接</span>
+  </div>
+
+  <noscript><style>.stx-panel { display: grid; } .stx-tabs { display: none; }</style></noscript>
+  <nav class="stx-tabs" id="stxTabs">
+    <button type="button" class="stx-tab-btn active" data-panel="physical">フィジカルAI・ロボティクス<span class="stx-tab-count">8</span></button>
+    <button type="button" class="stx-tab-btn" data-panel="life">生活関連企業<span class="stx-tab-count">7</span></button>
+  </nav>
+
+  <div class="stx-grid stx-panel active" id="panel-physical">
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">富士通</span><span class="grip-code">6702</span></div>
+      <p class="grip-desc">介護事業者向けAIソリューション、フィジカルAI協業の中核</p>
+      <span class="grip-tier tier-core">中核技術</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">川崎重工業</span><span class="grip-code">7012</span></div>
+      <p class="grip-desc">看護補助ロボ「Nurabot」（2026年度市場投入目標）、介護向けソーシャルロボット開発中</p>
+      <span class="grip-tier tier-core">中核技術</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">ファナック</span><span class="grip-code">6954</span></div>
+      <p class="grip-desc">協働ロボット大手。フィジカルAI協業を通じた間接的な関わり</p>
+      <span class="grip-tier tier-indirect">間接</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">安川電機</span><span class="grip-code">6506</span></div>
+      <p class="grip-desc">リハビリ機器「CoCoroe」の開発実績（現在は事業譲渡済み）、フィジカルAI協業に参画</p>
+      <span class="grip-tier tier-indirect">間接</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">サイバーダイン</span><span class="grip-code">7779</span></div>
+      <p class="grip-desc">装着型「HAL」で介護支援・自立支援、ロボケアセンター18拠点</p>
+      <span class="grip-tier tier-pure">専業に近い</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">兼松</span><span class="grip-code">8020</span></div>
+      <p class="grip-desc">高齢者向けAIコンパニオン「ElliQ」に出資、2026年春の日本展開目指す</p>
+      <span class="grip-tier tier-unit">一事業部門</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">ソフトバンクグループ</span><span class="grip-code">9984</span></div>
+      <p class="grip-desc">傘下ソフトバンクロボティクスが介護向けPepperを展開</p>
+      <span class="grip-tier tier-indirect">間接</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">トヨタ自動車</span><span class="grip-code">7203</span></div>
+      <p class="grip-desc">福祉車両「ウェルキャブ」、施設送迎の定番</p>
+      <span class="grip-tier tier-unit">一事業部門</span>
+    </div>
+  </div>
+
+  <div class="stx-grid stx-panel" id="panel-life">
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">アスクル</span><span class="grip-code">2678</span></div>
+      <p class="grip-desc">介護施設向け備品・衛生用品の法人通販</p>
+      <span class="grip-tier tier-unit">一事業部門</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">ニトリホールディングス</span><span class="grip-code">9843</span></div>
+      <p class="grip-desc">介護施設向けチェア・什器（法人事業）</p>
+      <span class="grip-tier tier-unit">一事業部門</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">ユニ・チャーム</span><span class="grip-code">8113</span></div>
+      <p class="grip-desc">大人用紙おむつ「ライフリー」</p>
+      <span class="grip-tier tier-unit">一事業部門</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">花王</span><span class="grip-code">4452</span></div>
+      <p class="grip-desc">大人用紙おむつ「リリーフ」</p>
+      <span class="grip-tier tier-indirect">間接</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">王子ホールディングス</span><span class="grip-code">3861</span></div>
+      <p class="grip-desc">大人用紙おむつ「ネピアテンダー」</p>
+      <span class="grip-tier tier-indirect">間接</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">パラマウントベッドホールディングス</span><span class="grip-code">7817</span></div>
+      <p class="grip-desc">介護ベッド「楽匠プラス」</p>
+      <span class="grip-tier tier-pure">専業に近い</span>
+    </div>
+    <div class="grip-card">
+      <div class="grip-head"><span class="grip-name">フランスベッドホールディングス</span><span class="grip-code">7840</span></div>
+      <p class="grip-desc">離床支援ベッド（厚労省助成対象製品あり）</p>
+      <span class="grip-tier tier-pure">専業に近い</span>
+    </div>
+  </div>
 
   <h2>この一覧について</h2>
-  <p>掲載銘柄は、当サイトの記事で取り上げた企業をもとに機械的にリストアップしたものです。介護・AIとの関わりの深さや、業績に占める割合は企業ごとに大きく異なります。「介護を応援するなら」という切り口で見る場合は、①介護ロボット・AI専業に近い企業、②大手企業の一事業部門として関わる企業、③未上場スタートアップ、の3階層で捉えると分かりやすくなります。株価の動きは日々変動します。このページの情報だけで投資判断を行わないようにしてください。</p>
+  <p class="stx-note">掲載銘柄は、当サイトの記事で取り上げた企業をもとに機械的にリストアップしたものです。介護・AIとの関わりの深さや、業績に占める割合は企業ごとに大きく異なります。「介護を応援するなら」という切り口で見る場合は、①介護ロボット・AI専業に近い企業、②大手企業の一事業部門として関わる企業、③未上場スタートアップ、の3階層で捉えると分かりやすくなります。株価の動きは日々変動します。このページの情報だけで投資判断を行わないようにしてください。</p>
 
   <a class="back" href="index.html">← 一覧へ戻る</a>
 </article>
 </div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('#stxTabs .stx-tab-btn');
+  var panels = {
+    physical: document.getElementById('panel-physical'),
+    life: document.getElementById('panel-life')
+  };
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      buttons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var target = btn.getAttribute('data-panel');
+      Object.keys(panels).forEach(function (key) {
+        panels[key].classList.toggle('active', key === target);
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
