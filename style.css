@@ -929,3 +929,6 @@ footer .footer-rule {
 .move-tag.tag-sns { background: rgba(29,155,240,.12); color: #1d9bf0; }
 
 .move-empty { color: var(--muted); font-size: .88rem; padding: 1rem 0; }
+
+/* [hidden] を display 指定より優先(絞り込みの表示切替を効かせる) */
+.move-item[hidden], .move-filter[hidden] { display: none !important; }
