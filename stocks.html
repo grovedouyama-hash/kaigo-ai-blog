@@ -191,7 +191,8 @@
       <span class="stx-detail-label">選択中の企業</span>
       <span class="stx-detail-name" id="stxDetailName">富士通 <span class="stx-detail-code">6702</span></span>
     </div>
-    <div class="tradingview-widget-container" id="stxAdvChart"></div>
+    <div id="stxAdvChart"></div>
+    <div class="stx-detail-credit" id="stxChartCredit"></div>
     <p class="stx-detail-note">上の会社カードをクリックすると、この本格チャートと、下のニュースが同時にその会社へ切り替わります。株価は遅延データで、投資助言ではありません。</p>
   </div>
 
@@ -393,6 +394,7 @@
   });
 })();
 </script>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
 (function () {
   var cards = document.querySelectorAll('.grip-card[data-co]');
@@ -404,36 +406,32 @@
   var detail = document.getElementById('stxDetail');
   var detailName = document.getElementById('stxDetailName');
 
-  // TradingView 本格チャートを、選択された会社に切り替える(無料の埋め込みウィジェット)
+  // TradingView 本格チャートを、選択された会社に切り替える(tv.js の widget を再生成)
   function buildChart(co, name) {
     var box = document.getElementById('stxAdvChart');
-    if (!box) return;
+    if (!box || typeof TradingView === 'undefined' || !TradingView.widget) return;
     var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    box.innerHTML = '<div class="tradingview-widget-container__widget"></div>'
-      + '<div class="tradingview-widget-copyright" style="font-size:0.78rem;color:var(--muted);margin-top:0.4rem;">'
-      + '<a href="https://www.tradingview.com/symbols/TSE-' + co + '/?utm_source=kaigo-ai&utm_medium=widget&utm_campaign=advanced-chart" rel="noopener nofollow" target="_blank" style="color:var(--muted);">'
-      + name + 'のチャート</a> by TradingView</div>';
-    var s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.async = true;
-    s.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
-    s.text = JSON.stringify({
-      "autosize": false,
-      "width": "100%",
-      "height": 460,
+    box.innerHTML = '';
+    new TradingView.widget({
+      "container_id": "stxAdvChart",
       "symbol": "TSE:" + co,
       "interval": "D",
       "timezone": "Asia/Tokyo",
       "theme": dark ? "dark" : "light",
       "style": "1",
       "locale": "ja",
+      "width": "100%",
+      "height": 460,
       "hide_side_toolbar": true,
       "allow_symbol_change": false,
       "save_image": false,
-      "calendar": false,
-      "support_host": "https://www.tradingview.com"
+      "hide_top_toolbar": false
     });
-    box.appendChild(s);
+    var credit = document.getElementById('stxChartCredit');
+    if (credit) {
+      credit.innerHTML = '<a href="https://www.tradingview.com/symbols/TSE-' + co + '/?utm_source=kaigo-ai&utm_medium=widget&utm_campaign=chart" rel="noopener nofollow" target="_blank">'
+        + name + 'のチャート</a> by TradingView';
+    }
   }
 
   function setDetailName(co, name) {

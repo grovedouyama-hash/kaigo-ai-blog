@@ -953,4 +953,7 @@ footer .footer-rule {
 .stx-detail-name { font-weight: 700; font-size: 1.1rem; color: var(--accent); }
 .stx-detail-code { font-size: .82rem; color: var(--muted); font-weight: 500; margin-left: .2rem; }
 .stx-detail-note { font-size: .78rem; color: var(--muted); margin: .55rem 0 0; line-height: 1.65; }
+.stx-detail-credit { font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+.stx-detail-credit a { color: var(--muted); }
+.stx-detail-credit a:hover { color: var(--accent); }
 #stxAdvChart { min-height: 460px; }
