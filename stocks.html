@@ -31,7 +31,7 @@
 
   <p class="stx-intro">このサイトで取り上げてきた「介護×AI」「介護施設を支える身近な企業」に関連する銘柄を、チャートで一覧できるようにしました。下のカード一覧では、同じ「介護関連銘柄」でも会社によって関わりの<strong>濃さ</strong>がまったく違う点を、色の濃淡で示しています。</p>
 
-  <div class="stx-chart-block">
+  <div class="stx-chart-block" style="display:none">
   <div class="tradingview-widget-container">
     <div class="tradingview-widget-container__widget"></div>
     <div class="tradingview-widget-copyright" style="font-size:0.78rem;color:var(--muted);margin-top:0.5rem;">
@@ -191,9 +191,9 @@
       <span class="stx-detail-label">選択中の企業</span>
       <span class="stx-detail-name" id="stxDetailName">富士通 <span class="stx-detail-code">6702</span></span>
     </div>
-    <div id="stxAdvChart"></div>
-    <div class="stx-detail-credit" id="stxChartCredit"></div>
-    <p class="stx-detail-note">上の会社カードをクリックすると、この本格チャートと、下のニュースが同時にその会社へ切り替わります。株価は遅延データで、投資助言ではありません。</p>
+    <div class="stx-quote" id="stxQuote"></div>
+    <div class="stx-chart" id="stxAdvChart"></div>
+    <p class="stx-detail-note">上の会社カードをクリックすると、このチャートと、下のニュースが同時にその会社へ切り替わります。データ: Yahoo Finance（直近約6ヶ月・終値ベースの参考値／遅延あり）。投資助言ではありません。</p>
   </div>
 
   <h2 id="moveHeading">企業の最新の動き・新商品</h2>
@@ -394,7 +394,7 @@
   });
 })();
 </script>
-<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script src="stock_data.js"></script>
 <script>
 (function () {
   var cards = document.querySelectorAll('.grip-card[data-co]');
@@ -406,31 +406,54 @@
   var detail = document.getElementById('stxDetail');
   var detailName = document.getElementById('stxDetailName');
 
-  // TradingView 本格チャートを、選択された会社に切り替える(tv.js の widget を再生成)
+  // 選択された会社の株価チャート(SVG)を自前で描画する。データは stock_data.js(Yahoo Finance由来・終値ベース)。
+  function fmtNum(n) { return (n == null || isNaN(n)) ? '—' : Number(n).toLocaleString('ja-JP'); }
   function buildChart(co, name) {
     var box = document.getElementById('stxAdvChart');
-    if (!box || typeof TradingView === 'undefined' || !TradingView.widget) return;
-    var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    box.innerHTML = '';
-    new TradingView.widget({
-      "container_id": "stxAdvChart",
-      "symbol": "TSE:" + co,
-      "interval": "D",
-      "timezone": "Asia/Tokyo",
-      "theme": dark ? "dark" : "light",
-      "style": "1",
-      "locale": "ja",
-      "width": "100%",
-      "height": 460,
-      "hide_side_toolbar": true,
-      "allow_symbol_change": false,
-      "save_image": false,
-      "hide_top_toolbar": false
-    });
-    var credit = document.getElementById('stxChartCredit');
-    if (credit) {
-      credit.innerHTML = '<a href="https://www.tradingview.com/symbols/TSE-' + co + '/?utm_source=kaigo-ai&utm_medium=widget&utm_campaign=chart" rel="noopener nofollow" target="_blank">'
-        + name + 'のチャート</a> by TradingView';
+    var quote = document.getElementById('stxQuote');
+    if (!box) return;
+    var data = (window.STOCK_DATA || {})[co];
+    if (!data || !data.c || data.c.length < 2) {
+      box.innerHTML = '<p class="stx-chart-empty">この銘柄の株価データは現在取得できていません。<br>（毎日自動で再取得を試みます）</p>';
+      if (quote) quote.innerHTML = '';
+      return;
+    }
+    var c = data.c, dd = data.d;
+    var min = Math.min.apply(null, c), max = Math.max.apply(null, c);
+    var pad = (max - min) * 0.08 || 1, lo = min - pad, hi = max + pad;
+    var W = 760, H = 300, PL = 8, PR = 56, PT = 12, PB = 22;
+    var iw = W - PL - PR, ih = H - PT - PB;
+    function X(i) { return PL + iw * (i / (c.length - 1)); }
+    function Y(v) { return PT + ih * (1 - (v - lo) / (hi - lo)); }
+    var accent = (getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#1d3994').trim() || '#1d3994';
+    var line = '';
+    for (var i = 0; i < c.length; i++) { line += (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(c[i]).toFixed(1); }
+    var area = line + 'L' + X(c.length - 1).toFixed(1) + ' ' + (PT + ih) + 'L' + X(0).toFixed(1) + ' ' + (PT + ih) + 'Z';
+    var grid = '', ylab = '';
+    for (var g = 0; g <= 3; g++) {
+      var val = lo + (hi - lo) * g / 3, yy = Y(val);
+      grid += '<line x1="' + PL + '" y1="' + yy.toFixed(1) + '" x2="' + (PL + iw) + '" y2="' + yy.toFixed(1) + '" class="stx-grid"/>';
+      ylab += '<text x="' + (PL + iw + 6) + '" y="' + (yy + 3).toFixed(1) + '" class="stx-axis">' + Math.round(val).toLocaleString('ja-JP') + '</text>';
+    }
+    var xi = [0, Math.floor((c.length - 1) / 2), c.length - 1];
+    var xlab = xi.map(function (ix) {
+      var anch = ix === 0 ? 'start' : (ix === c.length - 1 ? 'end' : 'middle');
+      return '<text x="' + X(ix).toFixed(1) + '" y="' + (H - 6) + '" class="stx-axis" text-anchor="' + anch + '">' + (dd[ix] || '').slice(5).replace('-', '/') + '</text>';
+    }).join('');
+    box.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="stx-svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + name + 'の株価チャート（約6ヶ月）">'
+      + '<defs><linearGradient id="stxfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + accent + '" stop-opacity="0.16"/><stop offset="1" stop-color="' + accent + '" stop-opacity="0"/></linearGradient></defs>'
+      + grid
+      + '<path d="' + area + '" fill="url(#stxfill)"/>'
+      + '<path d="' + line + '" fill="none" stroke="' + accent + '" stroke-width="1.6" stroke-linejoin="round"/>'
+      + ylab + xlab + '</svg>';
+    if (quote) {
+      var last = data.last != null ? data.last : c[c.length - 1];
+      var prev = data.prev != null ? data.prev : c[c.length - 2];
+      var diff = Math.round((last - prev) * 10) / 10, pct = prev ? (diff / prev * 100) : 0;
+      var cls = diff >= 0 ? 'up' : 'down', sg = diff >= 0 ? '+' : '';
+      quote.innerHTML = '<span class="stx-price">¥' + fmtNum(last) + '</span>'
+        + '<span class="stx-chg ' + cls + '">' + sg + fmtNum(diff) + '（' + sg + pct.toFixed(2) + '%）</span>'
+        + '<span class="stx-hl">52週 高 ¥' + fmtNum(data.hi) + ' ／ 安 ¥' + fmtNum(data.lo) + '</span>';
     }
   }
 

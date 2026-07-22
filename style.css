@@ -953,7 +953,18 @@ footer .footer-rule {
 .stx-detail-name { font-weight: 700; font-size: 1.1rem; color: var(--accent); }
 .stx-detail-code { font-size: .82rem; color: var(--muted); font-weight: 500; margin-left: .2rem; }
 .stx-detail-note { font-size: .78rem; color: var(--muted); margin: .55rem 0 0; line-height: 1.65; }
-.stx-detail-credit { font-size: .78rem; color: var(--muted); margin-top: .4rem; }
-.stx-detail-credit a { color: var(--muted); }
-.stx-detail-credit a:hover { color: var(--accent); }
-#stxAdvChart { min-height: 460px; }
+
+/* 直近終値・前日比 */
+.stx-quote { display: flex; align-items: baseline; flex-wrap: wrap; gap: .5rem .9rem; margin-bottom: .6rem; }
+.stx-price { font-size: 1.5rem; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.stx-chg { font-size: .95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stx-chg.up { color: var(--tag-green); }
+.stx-chg.down { color: var(--tag-red); }
+.stx-hl { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* 自前SVGチャート */
+.stx-chart { width: 100%; }
+.stx-svg { width: 100%; height: auto; display: block; }
+.stx-svg .stx-grid { stroke: var(--border); stroke-width: 1; }
+.stx-svg .stx-axis { fill: var(--muted); font-size: 11px; font-family: var(--sans); }
+.stx-chart-empty { color: var(--muted); font-size: .9rem; text-align: center; padding: 3rem 1rem; line-height: 1.7; }
