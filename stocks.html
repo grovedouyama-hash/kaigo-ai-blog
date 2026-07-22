@@ -186,6 +186,15 @@
     </div>
   </div>
 
+  <div class="stx-detail" id="stxDetail">
+    <div class="stx-detail-head">
+      <span class="stx-detail-label">選択中の企業</span>
+      <span class="stx-detail-name" id="stxDetailName">富士通 <span class="stx-detail-code">6702</span></span>
+    </div>
+    <div class="tradingview-widget-container" id="stxAdvChart"></div>
+    <p class="stx-detail-note">上の会社カードをクリックすると、この本格チャートと、下のニュースが同時にその会社へ切り替わります。株価は遅延データで、投資助言ではありません。</p>
+  </div>
+
   <h2 id="moveHeading">企業の最新の動き・新商品</h2>
   <p class="stx-note">掲載企業の新製品・提携・導入について、公式発表・報道・公式SNS(企業・自治体・報道機関の公式アカウント)を当サイトが自分の言葉で要約したものです。新しい順に並べています。上の会社カードをクリックすると、その企業の動きだけに絞り込めます。投資助言ではなく、製品の効果を保証するものでもありません。詳細は各出典リンクをご確認ください。</p>
 
@@ -392,7 +401,45 @@
   var nameEl = document.getElementById('moveFilterName');
   var reset = document.getElementById('moveFilterReset');
   var empty = document.getElementById('moveEmpty');
-  var heading = document.getElementById('moveHeading');
+  var detail = document.getElementById('stxDetail');
+  var detailName = document.getElementById('stxDetailName');
+
+  // TradingView 本格チャートを、選択された会社に切り替える(無料の埋め込みウィジェット)
+  function buildChart(co, name) {
+    var box = document.getElementById('stxAdvChart');
+    if (!box) return;
+    var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    box.innerHTML = '<div class="tradingview-widget-container__widget"></div>'
+      + '<div class="tradingview-widget-copyright" style="font-size:0.78rem;color:var(--muted);margin-top:0.4rem;">'
+      + '<a href="https://www.tradingview.com/symbols/TSE-' + co + '/?utm_source=kaigo-ai&utm_medium=widget&utm_campaign=advanced-chart" rel="noopener nofollow" target="_blank" style="color:var(--muted);">'
+      + name + 'のチャート</a> by TradingView</div>';
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+    s.text = JSON.stringify({
+      "autosize": false,
+      "width": "100%",
+      "height": 460,
+      "symbol": "TSE:" + co,
+      "interval": "D",
+      "timezone": "Asia/Tokyo",
+      "theme": dark ? "dark" : "light",
+      "style": "1",
+      "locale": "ja",
+      "hide_side_toolbar": true,
+      "allow_symbol_change": false,
+      "save_image": false,
+      "calendar": false,
+      "support_host": "https://www.tradingview.com"
+    });
+    box.appendChild(s);
+  }
+
+  function setDetailName(co, name) {
+    if (detailName) detailName.innerHTML = name + ' <span class="stx-detail-code">' + co + '</span>';
+  }
+
   function apply(co, name) {
     var shown = 0;
     items.forEach(function (it) {
@@ -404,19 +451,26 @@
     else { bar.hidden = true; }
     if (empty) empty.hidden = !(co && shown === 0);
   }
+
   cards.forEach(function (c) {
     function go() {
       var co = c.getAttribute('data-co');
       var nm = (c.querySelector('.grip-name') || {}).textContent || '';
       apply(co, nm);
-      if (heading) heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      buildChart(co, nm);
+      setDetailName(co, nm);
+      if (detail) detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     c.addEventListener('click', go);
     c.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
     });
   });
+
   if (reset) reset.addEventListener('click', function () { apply(null, ''); });
+
+  // 既定表示:富士通(6702)
+  buildChart('6702', '富士通');
 })();
 </script>
 <!-- ad-slot: page-bottom -->

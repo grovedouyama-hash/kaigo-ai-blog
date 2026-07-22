@@ -932,3 +932,25 @@ footer .footer-rule {
 
 /* [hidden] を display 指定より優先(絞り込みの表示切替を効かせる) */
 .move-item[hidden], .move-filter[hidden] { display: none !important; }
+
+/* ---- stocks: 選択中の企業の本格チャート(カードクリックで切替) ---- */
+.stx-detail {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem .9rem;
+  margin: 0 0 1.6rem;
+}
+.stx-detail-head {
+  display: flex; align-items: baseline; flex-wrap: wrap;
+  gap: .6rem; margin-bottom: .75rem;
+}
+.stx-detail-label {
+  font-size: .72rem; color: var(--muted);
+  background: var(--bg-subtle); padding: .18rem .55rem;
+  border-radius: 6px; white-space: nowrap;
+}
+.stx-detail-name { font-weight: 700; font-size: 1.1rem; color: var(--accent); }
+.stx-detail-code { font-size: .82rem; color: var(--muted); font-weight: 500; margin-left: .2rem; }
+.stx-detail-note { font-size: .78rem; color: var(--muted); margin: .55rem 0 0; line-height: 1.65; }
+#stxAdvChart { min-height: 460px; }
