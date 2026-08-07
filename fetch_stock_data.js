@@ -46,12 +46,13 @@ function fetchOne(code) {
 }
 
 (async function () {
-  var out = {};
+  var out = {}, okCount = 0;
   for (var k = 0; k < COMPANIES.length; k++) {
     var code = COMPANIES[k][0], name = COMPANIES[k][1];
     var r = await fetchOne(code);
     if (r.ok) {
       out[code] = { name: name, currency: r.currency, last: r.last, prev: r.prev, hi: r.hi, lo: r.lo, d: r.d, c: r.c };
+      okCount++;
       console.log('ok  ', code, name, r.c.length + 'pts', 'last', r.last);
     } else {
       out[code] = { name: name, ok: false };
@@ -59,7 +60,12 @@ function fetchOne(code) {
     }
     await new Promise(function (z) { setTimeout(z, 300); });
   }
+  // 全社失敗のときは、壊れたデータで既存ファイルを上書きしない(前回の正常データを保持)
+  if (okCount === 0) {
+    console.log('全社取得失敗のため stock_data.js は更新しません（既存データを保持）');
+    process.exit(2);
+  }
   out._updated = new Date().toISOString();
   fs.writeFileSync(OUT, 'window.STOCK_DATA=' + JSON.stringify(out) + ';\n', 'utf8');
-  console.log('written', OUT);
+  console.log('written', OUT, '(' + okCount + '社)');
 })();

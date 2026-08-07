@@ -12,11 +12,16 @@ function git(args) {
 }
 
 try {
-  git('add -A');
+  // 使い方:
+  //   node publish.js "コミットメッセージ"                 → 全変更を公開(git add -A)
+  //   node publish.js "コミットメッセージ" stock_data.js    → 指定ファイルだけ公開
+  const args = process.argv.slice(2);
+  const msg = (args[0] || '').trim() || ('サイト自動更新 ' + new Date().toISOString().slice(0, 10));
+  const files = args.slice(1);
+  git(files.length ? ('add ' + files.map(function (f) { return '"' + f + '"'; }).join(' ')) : 'add -A');
+
   const st = git('status --porcelain').trim();
   if (!st) { console.log('変更なし（コミット不要）'); process.exit(0); }
-
-  const msg = process.argv.slice(2).join(' ').trim() || ('サイト自動更新 ' + new Date().toISOString().slice(0, 10));
   const mf = path.join(os.tmpdir(), 'kaigo_commit_msg.txt');
   fs.writeFileSync(mf, msg + '\n', 'utf8');
   git('commit -F "' + mf + '"');
